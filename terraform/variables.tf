@@ -20,3 +20,21 @@ variable "gitea_username" {
   description = "Gitea Username"
   type        = string
 }
+
+variable "project_label" {
+  description = "Project name label"
+  type        = string
+  default     = "devops-exam"
+}
+
+variable "env_label" {
+  description = "Environment label"
+  type        = string
+  default     = "development"
+}
+
+variable "managed_by_label" {
+  description = "Managed by label"
+  type        = string
+  default     = "terraform"
+}

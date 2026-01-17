@@ -50,7 +50,7 @@ resource "docker_container" "web_server" {
 
     ports {
         internal = 80
-        external = 8080
+        external = 8081
     }
 
     labels {

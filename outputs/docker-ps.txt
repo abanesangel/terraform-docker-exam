@@ -1,0 +1,4 @@
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                                                                  NAMES
+34765e66aa69   8b6d9746a2db         "/entrypoint.sh sh -…"   22 minutes ago   Up 22 minutes                                                                                          exam-health-checker
+c5c5798af8d4   4cad75abc83d         "/docker-entrypoint.…"   22 minutes ago   Up 22 minutes   0.0.0.0:8081->80/tcp                                                                   exam-web-server
+3fbccad6e94a   gitea/gitea:1.22.6   "/usr/bin/entrypoint…"   12 hours ago     Up 12 hours     0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp, 0.0.0.0:2222->22/tcp, [::]:2222->22/tcp   gitea

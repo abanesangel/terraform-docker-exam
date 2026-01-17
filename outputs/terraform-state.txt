@@ -1,0 +1,232 @@
+# docker_container.health_checker:
+resource "docker_container" "health_checker" {
+    attach                                      = false
+    bridge                                      = [90mnull[0m[0m
+    command                                     = [
+        "sh",
+        "-c",
+        "while true; do curl -sf http://exam-web-server:80 || echo 'Health check failed'; sleep 30; done",
+    ]
+    container_read_refresh_timeout_milliseconds = 15000
+    cpu_set                                     = [90mnull[0m[0m
+    cpu_shares                                  = 0
+    domainname                                  = [90mnull[0m[0m
+    entrypoint                                  = [
+        "/entrypoint.sh",
+    ]
+    env                                         = []
+    hostname                                    = "34765e66aa69"
+    id                                          = "34765e66aa69d0880b357c42e39ae4067d8bcc833c51825aaa04fe08e3e5e253"
+    image                                       = "sha256:8b6d9746a2db43a95695c08b5c455407364660ea21d58745c3d3085873542ee3"
+    init                                        = false
+    ipc_mode                                    = "private"
+    log_driver                                  = "json-file"
+    logs                                        = false
+    max_retry_count                             = 0
+    memory                                      = 0
+    memory_swap                                 = 0
+    must_run                                    = true
+    name                                        = "exam-health-checker"
+    network_data                                = [
+        {
+            gateway                   = "172.21.0.1"
+            global_ipv6_address       = [90mnull[0m[0m
+            global_ipv6_prefix_length = 0
+            ip_address                = "172.21.0.3"
+            ip_prefix_length          = 16
+            ipv6_gateway              = [90mnull[0m[0m
+            mac_address               = "2a:16:cc:fa:f5:12"
+            network_name              = "exam-network"
+        },
+    ]
+    network_mode                                = "bridge"
+    pid_mode                                    = [90mnull[0m[0m
+    privileged                                  = false
+    publish_all_ports                           = false
+    read_only                                   = false
+    remove_volumes                              = true
+    restart                                     = "no"
+    rm                                          = false
+    runtime                                     = "runc"
+    security_opts                               = []
+    shm_size                                    = 64
+    start                                       = true
+    stdin_open                                  = false
+    stop_signal                                 = [90mnull[0m[0m
+    stop_timeout                                = 0
+    tty                                         = false
+    user                                        = "curl_user"
+    userns_mode                                 = [90mnull[0m[0m
+    wait                                        = false
+    wait_timeout                                = 60
+    working_dir                                 = "/home/curl_user"
+
+    labels {
+        label = "environment"
+        value = "development"
+    }
+    labels {
+        label = "managed_by"
+        value = "terraform"
+    }
+    labels {
+        label = "project"
+        value = "devops-exam"
+    }
+
+    networks_advanced {
+        aliases      = []
+        ipv4_address = [90mnull[0m[0m
+        ipv6_address = [90mnull[0m[0m
+        name         = "exam-network"
+    }
+}
+
+# docker_container.web_server:
+resource "docker_container" "web_server" {
+    attach                                      = false
+    bridge                                      = [90mnull[0m[0m
+    command                                     = [
+        "nginx",
+        "-g",
+        "daemon off;",
+    ]
+    container_read_refresh_timeout_milliseconds = 15000
+    cpu_set                                     = [90mnull[0m[0m
+    cpu_shares                                  = 0
+    domainname                                  = [90mnull[0m[0m
+    entrypoint                                  = [
+        "/docker-entrypoint.sh",
+    ]
+    env                                         = []
+    hostname                                    = "c5c5798af8d4"
+    id                                          = "c5c5798af8d48a410cc5307fdad75e12da91fd20987d86097f25217f5854ec9d"
+    image                                       = "sha256:4cad75abc83d5ca6ee22053d85850676eaef657ee9d723d7bef61179e1e1e485"
+    init                                        = false
+    ipc_mode                                    = "private"
+    log_driver                                  = "json-file"
+    logs                                        = false
+    max_retry_count                             = 0
+    memory                                      = 0
+    memory_swap                                 = 0
+    must_run                                    = true
+    name                                        = "exam-web-server"
+    network_data                                = [
+        {
+            gateway                   = "172.21.0.1"
+            global_ipv6_address       = [90mnull[0m[0m
+            global_ipv6_prefix_length = 0
+            ip_address                = "172.21.0.2"
+            ip_prefix_length          = 16
+            ipv6_gateway              = [90mnull[0m[0m
+            mac_address               = "22:63:d5:c4:7c:7b"
+            network_name              = "exam-network"
+        },
+    ]
+    network_mode                                = "bridge"
+    pid_mode                                    = [90mnull[0m[0m
+    privileged                                  = false
+    publish_all_ports                           = false
+    read_only                                   = false
+    remove_volumes                              = true
+    restart                                     = "no"
+    rm                                          = false
+    runtime                                     = "runc"
+    security_opts                               = []
+    shm_size                                    = 64
+    start                                       = true
+    stdin_open                                  = false
+    stop_signal                                 = "SIGQUIT"
+    stop_timeout                                = 0
+    tty                                         = false
+    user                                        = [90mnull[0m[0m
+    userns_mode                                 = [90mnull[0m[0m
+    wait                                        = false
+    wait_timeout                                = 60
+    working_dir                                 = [90mnull[0m[0m
+
+    labels {
+        label = "environment"
+        value = "development"
+    }
+    labels {
+        label = "managed_by"
+        value = "terraform"
+    }
+    labels {
+        label = "project"
+        value = "devops-exam"
+    }
+
+    networks_advanced {
+        aliases      = []
+        ipv4_address = [90mnull[0m[0m
+        ipv6_address = [90mnull[0m[0m
+        name         = "exam-network"
+    }
+
+    ports {
+        external = 8081
+        internal = 80
+        ip       = "0.0.0.0"
+        protocol = "tcp"
+    }
+}
+
+# docker_image.curl_img:
+resource "docker_image" "curl_img" {
+    id           = "sha256:8b6d9746a2db43a95695c08b5c455407364660ea21d58745c3d3085873542ee3curlimages/curl:8.17.0"
+    image_id     = "sha256:8b6d9746a2db43a95695c08b5c455407364660ea21d58745c3d3085873542ee3"
+    keep_locally = false
+    name         = "curlimages/curl:8.17.0"
+    repo_digest  = "curlimages/curl@sha256:935d9100e9ba842cdb060de42472c7ca90cfe9a7c96e4dacb55e79e560b3ff40"
+}
+
+# docker_image.nginx_img:
+resource "docker_image" "nginx_img" {
+    id           = "sha256:4cad75abc83d5ca6ee22053d85850676eaef657ee9d723d7bef61179e1e1e485nginx:1.27.4"
+    image_id     = "sha256:4cad75abc83d5ca6ee22053d85850676eaef657ee9d723d7bef61179e1e1e485"
+    keep_locally = false
+    name         = "nginx:1.27.4"
+    repo_digest  = "nginx@sha256:09369da6b10306312cd908661320086bf87fbae1b6b0c49a1f50ba531fef2eab"
+}
+
+# docker_network.exam_network:
+resource "docker_network" "exam_network" {
+    attachable   = false
+    driver       = "bridge"
+    id           = "9b13d8d79e6d0df05db7c97c8729cf03a515a3a796fda36265f4e9fddcb1ac4e"
+    ingress      = false
+    internal     = false
+    ipam_driver  = "default"
+    ipam_options = {}
+    ipv6         = false
+    name         = "exam-network"
+    options      = {
+        "com.docker.network.enable_ipv4" = "true"
+    }
+    scope        = "local"
+
+    ipam_config {
+        aux_address = {}
+        gateway     = "172.21.0.1"
+        ip_range    = [90mnull[0m[0m
+        subnet      = "172.21.0.0/16"
+    }
+
+    labels {
+        label = "environment"
+        value = "development"
+    }
+    labels {
+        label = "project"
+        value = "devops-exam"
+    }
+}
+
+
+Outputs:
+
+health_checker_container_id = "34765e66aa69d0880b357c42e39ae4067d8bcc833c51825aaa04fe08e3e5e253"
+network_id = "9b13d8d79e6d0df05db7c97c8729cf03a515a3a796fda36265f4e9fddcb1ac4e"
+nginx_container_id = "c5c5798af8d48a410cc5307fdad75e12da91fd20987d86097f25217f5854ec9d"
